@@ -58,4 +58,7 @@ export const AMM_TYPES = {
   HyhpEq587ANShDdbx1mP4dTmDZC44CXWft29oYQXDb53: "Fox",
   swapNyd8XiQwJ6ianp9snpu4brUqFxadzvHebnAXjJZ: "Stabble",
   ALPHAQmeA7bjrVuccPsYPiCvsi428SNwte66Srvs4pHA: "AlphaQ",
+  GAMMA7meSFWaBXF25oSUgmGRwaW6sCMFLmBNiMSdbHVT: "Gamma",
+  WooFif76YGRNjk1pA8wCsN67aQsD9f9iLsz4NcJ1AVb: "WOOFi",
+  pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA: "PumpSwap",
 };
