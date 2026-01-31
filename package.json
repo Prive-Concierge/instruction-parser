@@ -1,16 +1,20 @@
 {
   "name": "@jup-ag/instruction-parser",
-  "version": "6.0.27",
+  "version": "6.0.28",
   "description": "Parser to parse instruction on the Jupiter v4 program.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "module": "dist/index.mjs",
   "files": [
-    "dist"
+    "dist",
+    "src",
+    "tsconfig.json",
+    "tsup.config.ts"
   ],
   "scripts": {
     "start": "ts-node src/cli.ts",
-    "build": "tsup"
+    "build": "tsup",
+    "prepare": "npm run build"
   },
   "author": "",
   "license": "ISC",

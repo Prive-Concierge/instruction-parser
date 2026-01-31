@@ -1234,6 +1234,306 @@ export type Jupiter = {
                 type: "bool";
               }
             ];
+          },
+          {
+            name: "SolayerDelegateNoInit";
+          },
+          {
+            name: "SolayerUndelegateNoInit";
+          },
+          {
+            name: "ZeroFi";
+          },
+          {
+            name: "StakeDexWithdrawWrappedSol";
+          },
+          {
+            name: "VirtualsBuy";
+          },
+          {
+            name: "VirtualsSell";
+          },
+          {
+            name: "Perena";
+            fields: [
+              {
+                name: "inIndex";
+                type: "u8";
+              },
+              {
+                name: "outIndex";
+                type: "u8";
+              }
+            ];
+          },
+          {
+            name: "Gamma";
+          },
+          {
+            name: "MeteoraDlmmSwapV2";
+            fields: [
+              {
+                name: "remainingAccountsInfo";
+                type: {
+                  defined: "RemainingAccountsInfo";
+                };
+              }
+            ];
+          },
+          {
+            name: "Woofi";
+          },
+          {
+            name: "MeteoraDammV2";
+          },
+          {
+            name: "StabbleStableSwapV2";
+          },
+          {
+            name: "StabbleWeightedSwapV2";
+          },
+          {
+            name: "RaydiumLaunchlabBuy";
+            fields: [
+              {
+                name: "shareFeeRate";
+                type: "u64";
+              }
+            ];
+          },
+          {
+            name: "RaydiumLaunchlabSell";
+            fields: [
+              {
+                name: "shareFeeRate";
+                type: "u64";
+              }
+            ];
+          },
+          {
+            name: "BoopdotfunWrappedBuy";
+          },
+          {
+            name: "BoopdotfunWrappedSell";
+          },
+          {
+            name: "Plasma";
+            fields: [
+              {
+                name: "side";
+                type: {
+                  defined: "Side";
+                };
+              }
+            ];
+          },
+          {
+            name: "GoonFi";
+            fields: [
+              {
+                name: "isBid";
+                type: "bool";
+              },
+              {
+                name: "blacklistBump";
+                type: "u8";
+              }
+            ];
+          },
+          {
+            name: "HumidiFi";
+            fields: [
+              {
+                name: "swapId";
+                type: "u64";
+              },
+              {
+                name: "isBaseToQuote";
+                type: "bool";
+              }
+            ];
+          },
+          {
+            name: "MeteoraDynamicBondingCurveSwapWithRemainingAccounts";
+          },
+          {
+            name: "TesseraV";
+            fields: [
+              {
+                name: "side";
+                type: {
+                  defined: "Side";
+                };
+              }
+            ];
+          },
+          {
+            name: "Heaven";
+            fields: [
+              {
+                name: "aToB";
+                type: "bool";
+              }
+            ];
+          },
+          {
+            name: "SolFiV2";
+            fields: [
+              {
+                name: "isQuoteToBase";
+                type: "bool";
+              }
+            ];
+          },
+          {
+            name: "Aquifer";
+          },
+          {
+            name: "PumpWrappedBuyV3";
+          },
+          {
+            name: "PumpWrappedSellV3";
+          },
+          {
+            name: "PumpSwapBuyV3";
+          },
+          {
+            name: "PumpSwapSellV3";
+          },
+          {
+            name: "JupiterLendDeposit";
+          },
+          {
+            name: "JupiterLendRedeem";
+          },
+          {
+            name: "DefiTuna";
+            fields: [
+              {
+                name: "aToB";
+                type: "bool";
+              },
+              {
+                name: "remainingAccountsInfo";
+                type: {
+                  option: {
+                    defined: "RemainingAccountsInfo";
+                  };
+                };
+              }
+            ];
+          },
+          {
+            name: "AlphaQ";
+            fields: [
+              {
+                name: "aToB";
+                type: "bool";
+              }
+            ];
+          },
+          {
+            name: "RaydiumV2";
+          },
+          {
+            name: "SarosDlmm";
+            fields: [
+              {
+                name: "swapForY";
+                type: "bool";
+              }
+            ];
+          },
+          {
+            name: "Futarchy";
+            fields: [
+              {
+                name: "side";
+                type: {
+                  defined: "Side";
+                };
+              }
+            ];
+          },
+          {
+            name: "MeteoraDammV2WithRemainingAccounts";
+          },
+          {
+            name: "Obsidian";
+          },
+          {
+            name: "WhaleStreet";
+            fields: [
+              {
+                name: "side";
+                type: {
+                  defined: "Side";
+                };
+              }
+            ];
+          },
+          {
+            name: "PumpWrappedBuyV4";
+          },
+          {
+            name: "PumpWrappedSellV4";
+          },
+          {
+            name: "CarrotIssue";
+          },
+          {
+            name: "CarrotRedeem";
+          },
+          {
+            name: "Manifest";
+            fields: [
+              {
+                name: "side";
+                type: {
+                  defined: "Side";
+                };
+              }
+            ];
+          },
+          {
+            name: "BisonFi";
+            fields: [
+              {
+                name: "aToB";
+                type: "bool";
+              }
+            ];
+          },
+          {
+            name: "HumidiFiV2";
+            fields: [
+              {
+                name: "swapId";
+                type: "u64";
+              },
+              {
+                name: "isBaseToQuote";
+                type: "bool";
+              }
+            ];
+          },
+          {
+            name: "PerenaStar";
+            fields: [
+              {
+                name: "isMint";
+                type: "bool";
+              }
+            ];
+          },
+          {
+            name: "GoonFiV2";
+            fields: [
+              {
+                name: "isBid";
+                type: "bool";
+              }
+            ];
           }
         ];
       };
@@ -2671,6 +2971,306 @@ export const IDL: Jupiter = {
             fields: [
               {
                 name: "isQuoteToBase",
+                type: "bool",
+              },
+            ],
+          },
+          {
+            name: "SolayerDelegateNoInit",
+          },
+          {
+            name: "SolayerUndelegateNoInit",
+          },
+          {
+            name: "ZeroFi",
+          },
+          {
+            name: "StakeDexWithdrawWrappedSol",
+          },
+          {
+            name: "VirtualsBuy",
+          },
+          {
+            name: "VirtualsSell",
+          },
+          {
+            name: "Perena",
+            fields: [
+              {
+                name: "inIndex",
+                type: "u8",
+              },
+              {
+                name: "outIndex",
+                type: "u8",
+              },
+            ],
+          },
+          {
+            name: "Gamma",
+          },
+          {
+            name: "MeteoraDlmmSwapV2",
+            fields: [
+              {
+                name: "remainingAccountsInfo",
+                type: {
+                  defined: "RemainingAccountsInfo",
+                },
+              },
+            ],
+          },
+          {
+            name: "Woofi",
+          },
+          {
+            name: "MeteoraDammV2",
+          },
+          {
+            name: "StabbleStableSwapV2",
+          },
+          {
+            name: "StabbleWeightedSwapV2",
+          },
+          {
+            name: "RaydiumLaunchlabBuy",
+            fields: [
+              {
+                name: "shareFeeRate",
+                type: "u64",
+              },
+            ],
+          },
+          {
+            name: "RaydiumLaunchlabSell",
+            fields: [
+              {
+                name: "shareFeeRate",
+                type: "u64",
+              },
+            ],
+          },
+          {
+            name: "BoopdotfunWrappedBuy",
+          },
+          {
+            name: "BoopdotfunWrappedSell",
+          },
+          {
+            name: "Plasma",
+            fields: [
+              {
+                name: "side",
+                type: {
+                  defined: "Side",
+                },
+              },
+            ],
+          },
+          {
+            name: "GoonFi",
+            fields: [
+              {
+                name: "isBid",
+                type: "bool",
+              },
+              {
+                name: "blacklistBump",
+                type: "u8",
+              },
+            ],
+          },
+          {
+            name: "HumidiFi",
+            fields: [
+              {
+                name: "swapId",
+                type: "u64",
+              },
+              {
+                name: "isBaseToQuote",
+                type: "bool",
+              },
+            ],
+          },
+          {
+            name: "MeteoraDynamicBondingCurveSwapWithRemainingAccounts",
+          },
+          {
+            name: "TesseraV",
+            fields: [
+              {
+                name: "side",
+                type: {
+                  defined: "Side",
+                },
+              },
+            ],
+          },
+          {
+            name: "Heaven",
+            fields: [
+              {
+                name: "aToB",
+                type: "bool",
+              },
+            ],
+          },
+          {
+            name: "SolFiV2",
+            fields: [
+              {
+                name: "isQuoteToBase",
+                type: "bool",
+              },
+            ],
+          },
+          {
+            name: "Aquifer",
+          },
+          {
+            name: "PumpWrappedBuyV3",
+          },
+          {
+            name: "PumpWrappedSellV3",
+          },
+          {
+            name: "PumpSwapBuyV3",
+          },
+          {
+            name: "PumpSwapSellV3",
+          },
+          {
+            name: "JupiterLendDeposit",
+          },
+          {
+            name: "JupiterLendRedeem",
+          },
+          {
+            name: "DefiTuna",
+            fields: [
+              {
+                name: "aToB",
+                type: "bool",
+              },
+              {
+                name: "remainingAccountsInfo",
+                type: {
+                  option: {
+                    defined: "RemainingAccountsInfo",
+                  },
+                },
+              },
+            ],
+          },
+          {
+            name: "AlphaQ",
+            fields: [
+              {
+                name: "aToB",
+                type: "bool",
+              },
+            ],
+          },
+          {
+            name: "RaydiumV2",
+          },
+          {
+            name: "SarosDlmm",
+            fields: [
+              {
+                name: "swapForY",
+                type: "bool",
+              },
+            ],
+          },
+          {
+            name: "Futarchy",
+            fields: [
+              {
+                name: "side",
+                type: {
+                  defined: "Side",
+                },
+              },
+            ],
+          },
+          {
+            name: "MeteoraDammV2WithRemainingAccounts",
+          },
+          {
+            name: "Obsidian",
+          },
+          {
+            name: "WhaleStreet",
+            fields: [
+              {
+                name: "side",
+                type: {
+                  defined: "Side",
+                },
+              },
+            ],
+          },
+          {
+            name: "PumpWrappedBuyV4",
+          },
+          {
+            name: "PumpWrappedSellV4",
+          },
+          {
+            name: "CarrotIssue",
+          },
+          {
+            name: "CarrotRedeem",
+          },
+          {
+            name: "Manifest",
+            fields: [
+              {
+                name: "side",
+                type: {
+                  defined: "Side",
+                },
+              },
+            ],
+          },
+          {
+            name: "BisonFi",
+            fields: [
+              {
+                name: "aToB",
+                type: "bool",
+              },
+            ],
+          },
+          {
+            name: "HumidiFiV2",
+            fields: [
+              {
+                name: "swapId",
+                type: "u64",
+              },
+              {
+                name: "isBaseToQuote",
+                type: "bool",
+              },
+            ],
+          },
+          {
+            name: "PerenaStar",
+            fields: [
+              {
+                name: "isMint",
+                type: "bool",
+              },
+            ],
+          },
+          {
+            name: "GoonFiV2",
+            fields: [
+              {
+                name: "isBid",
                 type: "bool",
               },
             ],

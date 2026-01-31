@@ -20,18 +20,23 @@ export class InstructionParser {
         continue;
       }
 
-      const ix = this.coder.instruction.decode(instruction.data, "base58");
+      try {
+        const ix = this.coder.instruction.decode(instruction.data, "base58");
 
-      if (this.isRouting(ix.name)) {
-        const instructionName = ix.name;
-        const transferAuthority =
-          instruction.accounts[
-            this.getTransferAuthorityIndex(instructionName)
-          ].toString();
-        const lastAccount =
-          instruction.accounts[instruction.accounts.length - 1].toString();
+        if (ix && this.isRouting(ix.name)) {
+          const instructionName = ix.name;
+          const transferAuthority =
+            instruction.accounts[
+              this.getTransferAuthorityIndex(instructionName)
+            ].toString();
+          const lastAccount =
+            instruction.accounts[instruction.accounts.length - 1].toString();
 
-        return [ix.name, transferAuthority, lastAccount];
+          return [ix.name, transferAuthority, lastAccount];
+        }
+      } catch (e) {
+        // Skip instructions with unknown swap types (IDL may be outdated)
+        continue;
       }
     }
 
@@ -53,9 +58,16 @@ export class InstructionParser {
 
   // For CPI, we have to also check for innerInstructions.
   getInstructions(tx: TransactionWithMeta): PartialInstruction[] {
+    console.log("[InstructionParser.getInstructions] Starting...");
+    console.log("[InstructionParser.getInstructions] Jupiter programId:", this.programId.toBase58());
+    console.log("[InstructionParser.getInstructions] Top-level instructions:", tx.transaction.message.instructions.length);
+    console.log("[InstructionParser.getInstructions] Inner instruction groups:", tx.meta.innerInstructions?.length ?? 0);
+    
     const parsedInstructions: PartialInstruction[] = [];
     for (const instruction of tx.transaction.message.instructions) {
+      console.log("[InstructionParser.getInstructions] Top-level programId:", instruction.programId.toBase58());
       if (instruction.programId.equals(this.programId)) {
+        console.log("[InstructionParser.getInstructions] Found Jupiter instruction at top level");
         parsedInstructions.push(instruction as any);
       }
     }
@@ -63,60 +75,81 @@ export class InstructionParser {
     for (const instructions of tx.meta.innerInstructions) {
       for (const instruction of instructions.instructions) {
         if (instruction.programId.equals(this.programId)) {
+          console.log("[InstructionParser.getInstructions] Found Jupiter instruction in inner instructions");
           parsedInstructions.push(instruction as any);
         }
       }
     }
 
+    console.log("[InstructionParser.getInstructions] Total Jupiter instructions found:", parsedInstructions.length);
     return parsedInstructions;
   }
 
   // Extract the position of the initial and final swap from the swap array.
   getInitialAndFinalSwapPositions(instructions: PartialInstruction[]) {
-    for (const instruction of instructions) {
+    console.log("[InstructionParser.getInitialAndFinalSwapPositions] Processing", instructions.length, "instructions");
+    
+    for (let i = 0; i < instructions.length; i++) {
+      const instruction = instructions[i];
       if (!instruction.programId.equals(this.programId)) {
         continue;
       }
 
-      const ix = this.coder.instruction.decode(instruction.data, "base58");
-      // This will happen because now event is also an CPI instruction.
-      if (!ix) {
-        continue;
-      }
-
-      if (this.isRouting(ix.name)) {
-        const routePlan = (ix.data as any).routePlan as RoutePlan;
-        const inputIndex = 0;
-        const outputIndex = routePlan.length;
-
-        const initialPositions: number[] = [];
-        for (let j = 0; j < routePlan.length; j++) {
-          if (routePlan[j].inputIndex === inputIndex) {
-            initialPositions.push(j);
-          }
+      console.log("[InstructionParser.getInitialAndFinalSwapPositions] Trying to decode instruction", i);
+      
+      try {
+        const ix = this.coder.instruction.decode(instruction.data, "base58");
+        // This will happen because now event is also an CPI instruction.
+        if (!ix) {
+          console.log("[InstructionParser.getInitialAndFinalSwapPositions] Decode returned null for instruction", i);
+          continue;
         }
 
-        const finalPositions: number[] = [];
-        for (let j = 0; j < routePlan.length; j++) {
-          if (routePlan[j].outputIndex === outputIndex) {
-            finalPositions.push(j);
-          }
-        }
+        console.log("[InstructionParser.getInitialAndFinalSwapPositions] Decoded instruction name:", ix.name);
 
-        if (
-          finalPositions.length === 0 &&
-          this.isCircular((ix.data as any).routePlan)
-        ) {
-          for (let j = 0; j < (ix.data as any).routePlan.length; j++) {
-            if ((ix.data as any).routePlan[j].outputIndex === 0) {
+        if (this.isRouting(ix.name)) {
+          const routePlan = (ix.data as any).routePlan as RoutePlan;
+          console.log("[InstructionParser.getInitialAndFinalSwapPositions] RoutePlan length:", routePlan?.length);
+          
+          const inputIndex = 0;
+          const outputIndex = routePlan.length;
+
+          const initialPositions: number[] = [];
+          for (let j = 0; j < routePlan.length; j++) {
+            if (routePlan[j].inputIndex === inputIndex) {
+              initialPositions.push(j);
+            }
+          }
+
+          const finalPositions: number[] = [];
+          for (let j = 0; j < routePlan.length; j++) {
+            if (routePlan[j].outputIndex === outputIndex) {
               finalPositions.push(j);
             }
           }
-        }
 
-        return [initialPositions, finalPositions];
+          if (
+            finalPositions.length === 0 &&
+            this.isCircular((ix.data as any).routePlan)
+          ) {
+            for (let j = 0; j < (ix.data as any).routePlan.length; j++) {
+              if ((ix.data as any).routePlan[j].outputIndex === 0) {
+                finalPositions.push(j);
+              }
+            }
+          }
+
+          console.log("[InstructionParser.getInitialAndFinalSwapPositions] Returning positions:", { initialPositions, finalPositions });
+          return [initialPositions, finalPositions];
+        }
+      } catch (e) {
+        // Skip instructions with unknown swap types (IDL may be outdated)
+        console.log("[InstructionParser.getInitialAndFinalSwapPositions] Error decoding instruction", i, ":", (e as Error).message);
+        continue;
       }
     }
+    
+    console.log("[InstructionParser.getInitialAndFinalSwapPositions] No valid positions found, returning undefined");
   }
 
   getExactOutAmount(instructions: (ParsedInstruction | PartialInstruction)[]) {
@@ -126,10 +159,15 @@ export class InstructionParser {
       }
       if (!("data" in instruction)) continue; // Guard in case it is a parsed decoded instruction, should be impossible
 
-      const ix = this.coder.instruction.decode(instruction.data, "base58");
+      try {
+        const ix = this.coder.instruction.decode(instruction.data, "base58");
 
-      if (this.isExactIn(ix.name)) {
-        return (ix.data as any).quotedOutAmount.toString();
+        if (ix && this.isExactIn(ix.name)) {
+          return (ix.data as any).quotedOutAmount.toString();
+        }
+      } catch (e) {
+        // Skip instructions with unknown swap types (IDL may be outdated)
+        continue;
       }
     }
 
@@ -143,10 +181,15 @@ export class InstructionParser {
       }
       if (!("data" in instruction)) continue; // Guard in case it is a parsed decoded instruction, should be impossible
 
-      const ix = this.coder.instruction.decode(instruction.data, "base58");
+      try {
+        const ix = this.coder.instruction.decode(instruction.data, "base58");
 
-      if (this.isExactOut(ix.name)) {
-        return (ix.data as any).quotedInAmount.toString();
+        if (ix && this.isExactOut(ix.name)) {
+          return (ix.data as any).quotedInAmount.toString();
+        }
+      } catch (e) {
+        // Skip instructions with unknown swap types (IDL may be outdated)
+        continue;
       }
     }
 
