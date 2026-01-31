@@ -111,6 +111,11 @@ export class InstructionParser {
           const routePlan = (ix.data as any).routePlan as RoutePlan;
           console.log("[InstructionParser.getInitialAndFinalSwapPositions] RoutePlan length:", routePlan?.length);
           
+          // Debug: log the actual inputIndex/outputIndex values in routePlan
+          for (let j = 0; j < routePlan.length; j++) {
+            console.log(`[InstructionParser.getInitialAndFinalSwapPositions] routePlan[${j}]: inputIndex=${routePlan[j].inputIndex}, outputIndex=${routePlan[j].outputIndex}`);
+          }
+          
           const inputIndex = 0;
           const outputIndex = routePlan.length;
 
@@ -137,6 +142,14 @@ export class InstructionParser {
                 finalPositions.push(j);
               }
             }
+          }
+
+          // Fallback for single-hop swaps: if routePlan has items but positions are empty,
+          // use [0] as both initial and final position
+          if (routePlan.length > 0 && (initialPositions.length === 0 || finalPositions.length === 0)) {
+            console.log("[InstructionParser.getInitialAndFinalSwapPositions] Fallback: using [0] for empty positions");
+            if (initialPositions.length === 0) initialPositions.push(0);
+            if (finalPositions.length === 0) finalPositions.push(routePlan.length - 1);
           }
 
           console.log("[InstructionParser.getInitialAndFinalSwapPositions] Returning positions:", { initialPositions, finalPositions });

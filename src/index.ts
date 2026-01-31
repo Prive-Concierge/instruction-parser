@@ -119,8 +119,9 @@ export async function extract(
   const positions = parser.getInitialAndFinalSwapPositions(instructions);
   console.log("[extract] Positions result:", positions);
   
-  // Handle case where positions can't be determined (e.g., unknown swap types)
-  if (!positions || positions.length !== 2) {
+  // Handle case where positions can't be determined (e.g., unknown swap types, single-hop swaps)
+  // Also check if the position arrays are empty - this happens for single-hop swaps
+  if (!positions || positions.length !== 2 || positions[0].length === 0 || positions[1].length === 0) {
     console.log("[extract] Using fallback positions (first/last swap events)");
     // Fallback: use first and last swap events
     const initialPositions = [0];
