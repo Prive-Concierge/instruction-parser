@@ -57,5 +57,5 @@ export const AMM_TYPES = {
   SoLFiHG9TfgtdUXUjWAxi3LtvYuFyDLVhBWxdMZxyCe: "SolFi",
   HyhpEq587ANShDdbx1mP4dTmDZC44CXWft29oYQXDb53: "Fox",
   swapNyd8XiQwJ6ianp9snpu4brUqFxadzvHebnAXjJZ: "Stabble",
-  ALPHAQmeA7bjrVuccPsYPiCvsi428SNwte66Srvs4pHA: "Alpha",
+  ALPHAQmeA7bjrVuccPsYPiCvsi428SNwte66Srvs4pHA: "AlphaQ",
 };
