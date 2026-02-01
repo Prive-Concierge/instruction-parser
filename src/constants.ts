@@ -62,5 +62,5 @@ export const AMM_TYPES = {
   WooFif76YGRNjk1pA8wCsN67aQsD9f9iLsz4NcJ1AVb: "WOOFi",
   pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA: "PumpSwap",
   "6m2CDdhRgxpH4WjvdzxAYbGxwdGUz5MziiL5jek2kBma": "OKX DEX",
-  SV2EYYJyRz2YhfXwXnhNAevDEui5Q6yrfyo13WtupPF: "Stabble V2",
+  SV2EYYJyRz2YhfXwXnhNAevDEui5Q6yrfyo13WtupPF: "SolFi V2",
 };
